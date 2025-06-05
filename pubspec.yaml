@@ -1,0 +1,42 @@
+name: flutter_skripsi
+description: A new Flutter project for FoundationFit.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Icon standar iOS
+  cupertino_icons: ^1.0.6
+
+  # Ambil gambar dari kamera/galeri
+  image_picker: ^1.1.2
+
+  # HTTP client (kirim ke Flask)
+  http: ^0.13.6
+
+  # Untuk parsing MIME Type dari file (image/jpeg, dll)
+  mime: ^1.0.4
+  http_parser: any
+
+  # Untuk pengaturan path (jika dibutuhkan)
+  path: ^1.8.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Aturan linting standar Flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  # Jika kamu ingin tambahkan gambar overlay sebagai border kamera:
+  # assets:
+  #   - assets/overlay.png
