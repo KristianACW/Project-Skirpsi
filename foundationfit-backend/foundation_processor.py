@@ -45,11 +45,44 @@ color_samples = {
     "Mahogany (420) ColorStay Full Cover Foundation": np.array([148, 88, 54]),
 }
 
+def apply_unsharp_mask(image, sigma=1.0, strength=1.5):
+    """Terapkan Unsharp Masking untuk meningkatkan ketajaman gambar."""
+    # Langkah 1: Blur gambar dengan GaussianBlur
+    blurred = cv2.GaussianBlur(image, (5, 5), sigma)
+
+    # Langkah 2: Kurangkan gambar blur dari gambar asli
+    mask = cv2.subtract(image, blurred)
+
+    # Langkah 3: Tambahkan mask ke gambar asli untuk meningkatkan ketajaman
+    sharpened = cv2.addWeighted(image, 1 + strength, mask, -strength, 0)
+
+    return sharpened
+
+def apply_clahe(image):
+    """Terapkan CLAHE untuk memperbaiki pencahayaan gambar."""
+    # Konversi gambar ke grayscale
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Inisialisasi CLAHE
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+
+    # Terapkan CLAHE
+    clahe_img = clahe.apply(gray)
+
+    # Konversi kembali ke BGR
+    clahe_img = cv2.cvtColor(clahe_img, cv2.COLOR_GRAY2BGR)
+
+    return clahe_img
+
 def extract_neck_color(image_path):
     """Ekstraksi rata-rata warna dari area leher pada wajah dalam gambar."""
     image = cv2.imread(image_path)
     if image is None:
         return None
+
+    # Terapkan Unsharp Masking dan CLAHE untuk memperbaiki pencahayaan dan ketajaman gambar
+    image = apply_unsharp_mask(image)
+    image = apply_clahe(image)
 
     with mp.solutions.face_mesh.FaceMesh(
         static_image_mode=True,
@@ -66,7 +99,7 @@ def extract_neck_color(image_path):
         h, w, _ = image.shape
         face_landmarks = results.multi_face_landmarks[0]
 
-        # Landmark area leher bagian bawah
+        # Landmark area leher
         idxs = [152, 377, 400, 378]
         points = [
             (int(face_landmarks.landmark[i].x * w), int(face_landmarks.landmark[i].y * h))
@@ -162,8 +195,11 @@ def get_best_foundation_match(image_path):
     print(f"Selected algorithm: {best_algorithm}")
     print(f"Selected brand: {best_brand}")
     print(f"Selected hex: {best_hex}")
-    print("Score Cosine:", score_cosine, "| Result:", result_cosine)
-    print("Score Euclidean:", score_euclidean, "| Result:", result_euclidean)
-    print("Score Manhattan:", score_manhattan, "| Result:", result_manhattan)
+    print("Score Cosine:", score_cosine, "| Result:", result_cosine, hex_cosine)
+    print("Score Euclidean:", score_euclidean, "| Result:", result_euclidean, hex_euclidean)
+    print("Score Manhattan:", score_manhattan, "| Result:", result_manhattan, hex_manhattan)
+    print("Extracted color:", avg_color)
+    print("Scores:", score_cosine, score_euclidean, score_manhattan)
+
 
     return best_algorithm, best_brand, best_hex

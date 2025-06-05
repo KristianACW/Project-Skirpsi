@@ -42,7 +42,7 @@ class _CameraPageState extends State<CameraPage> {
   Future<void> _uploadAndProcess() async {
     if (_image == null) return;
 
-    final uri = Uri.parse('http://172.22.104.18:5000/process'); // ganti IP Flask kamu
+    final uri = Uri.parse('http://192.168.0.5:5000/process'); // ganti IP Flask kamu
     final request = http.MultipartRequest('POST', uri);
     final mimeType = lookupMimeType(_image!.path)?.split('/');
 
