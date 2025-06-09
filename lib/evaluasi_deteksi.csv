@@ -1,0 +1,41 @@
+filename,mediapipe_detected,haar_detected
+download (1).jpg,True,True
+download (10).jpg,True,True
+download (11).jpg,True,True
+download (12).jpg,True,False
+download (13).jpg,True,True
+download (14).jpg,True,True
+download (15).jpg,True,True
+download (16).jpg,True,True
+download (2).jpg,True,True
+download (3).jpg,True,True
+download (4).jpg,True,True
+download (5).jpg,True,True
+download (6).jpg,True,True
+download (7).jpg,True,True
+download (8).jpg,True,True
+download (9).jpg,True,True
+download.jpg,True,True
+images (1).jpg,True,True
+images (10).jpg,True,True
+images (11).jpg,True,True
+images (12).jpg,True,True
+images (13).jpg,True,True
+images (14).jpg,True,True
+images (15).jpg,True,True
+images (16).jpg,True,True
+images (17).jpg,True,True
+images (18).jpg,True,False
+images (19).jpg,True,True
+images (2).jpg,True,True
+images (20).jpg,True,True
+images (21).jpg,True,False
+images (22).jpg,True,True
+images (3).jpg,True,True
+images (4).jpg,True,True
+images (5).jpg,True,True
+images (6).jpg,True,True
+images (7).jpg,True,True
+images (8).jpg,True,True
+images (9).jpg,True,True
+images.jpg,True,True
